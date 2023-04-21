@@ -14,6 +14,37 @@ class MyPromise{
       this.reject(e);
     }
   }
+  static race (promises) {
+    return new Promise((resolve, reject) => {
+      if (Array.isArray(promises)) {
+        if (promises.length) {
+          promises.forEach(item => {
+            MyPromise.resolve(item).then(resolve, reject);
+          })
+        }
+      } else {
+        return reject(new TypeError('Argument is not iterable'));
+      }
+    })
+  }
+
+  static resolve  (value) {
+     // 如果这个值是一个 promise ，那么将返回这个 promise 
+     if (value instanceof MyPromise) {
+         return value;
+     } else if (value instanceof Object && 'then' in value) {
+         // 如果这个值是thenable（即带有`"then" `方法），返回的promise会“跟随”这个thenable的对象，采用它的最终状态；
+         return new MyPromise((resolve, reject) => {
+           value.then(resolve, reject);
+         });
+     }
+    
+     // 否则返回的promise将以此值完成，即以此值执行`resolve()`方法 (状态为fulfilled)
+     return new MyPromise((resolve) => {
+       resolve(value);
+     });
+ }
+
 
   resolve (result) {
     if (this.PromiseState === MyPromise.PENDING) {
@@ -164,3 +195,4 @@ MyPromise.deferred = function() {
 }
 
 module.exports = MyPromise;
+
