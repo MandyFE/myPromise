@@ -5,7 +5,7 @@ https://promisesaplus.com/#notes
 ### ES6 关于Promise 的介绍
 https://promisesaplus.com/#notes
 
-##### Promise.prototype上的方法
+#### Promise.prototype上的方法
 `1. Promise.prototype.then( result( ),reason( ) )`
 接受两个函数，分别对fulfilled和rejected状态做处理
 
@@ -16,7 +16,7 @@ https://promisesaplus.com/#notes
 接收一个函数，不管是fulfilled还是rejected 都会执行
 
 
-##### Promise( )上的方法
+#### Promise( )上的方法
 `1. Promise.resolve()`
 返回一个fulfilled的Promise对象
 
